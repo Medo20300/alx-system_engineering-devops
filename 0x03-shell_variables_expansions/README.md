@@ -1,4 +1,4 @@
-#0x03. Shell, init files, variables and expansions
+## 0x03. Shell, init files, variables and expansions
 
 
 # Resources
@@ -12,7 +12,7 @@
 
 
 
-#man or help:
+## man or help:
 
    * printenv
    * set
@@ -23,7 +23,7 @@
    * source
    * printf
 
-#Variables
+## Variables
   
   * What is the difference between a local and a global variable
   * What is a reserved variable
@@ -33,9 +33,9 @@
   * What is the special parameter $??
 
 
-#Shell Arithmetic
+## Shell Arithmetic
    * How to perform arithmetic operations with the shell
-#The alias Command
+## The alias Command
    * How to create an alias
    * How to list aliases
    * How to temporarily disable an alias
