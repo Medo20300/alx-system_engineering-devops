@@ -1,10 +1,12 @@
-#!/user/bin/pup
 #Install flask version 2.1.0
 
-exec {'pip3 install flask':
-require => Exec['python-installed'],
-command => '/usr/bin/pip3 install flask==2.1.0'
+package { 'python3-pip':
+  ensure => installed,
 }
-exec {'python-installed':
-command => '/usr/bin/which python3'
+
+exec { 'install_flask':
+  command     => '/usr/bin/pip3 install Flask==2.1.0',
+  path        => '/usr/local/bin:/usr/bin:/bin',
+  environment => ['HOME=/root'],
+  require     => Package['python3-pip'],
 }
