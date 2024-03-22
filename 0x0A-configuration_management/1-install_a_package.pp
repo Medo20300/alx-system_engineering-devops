@@ -1,3 +1,4 @@
+#!/user/bin/pup
 #Install flask version 2.1.0
 
 exec {'pip3 install flask':
