@@ -1,0 +1,4 @@
+#i/usr/bin/env bash
+#geerating ssh key pairs
+
+ssh-keygen -t rsa -b 4096 -p betty -fschool
