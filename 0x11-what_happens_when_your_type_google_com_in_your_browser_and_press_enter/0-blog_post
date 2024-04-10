@@ -1,0 +1,144 @@
+This question is a classic and still widely used interview question for many types of software engineering positions. It is used to assess a candidate’s general knowledge of how the web stack works on top of the internet. One important guideline to begin answering this question is that you should ask your interviewer whether they would like you to focus on one specific area of the workflow. For a front-end position, they may want you to talk at length about how the DOM is rendering. For an SRE position, they may want you to go into the load-balancing mechanism.
+This question is a good test of whether you understand DNS. Many software engineering candidates struggle with this concept, so if you do well on this question, you are already way ahead of the curve. If you take this project seriously and write an excellent article, it may be something that will grab the attention of future employers.
+First, let's talk about the URL "google.com" which we are trying to reach
+URL
+URL stands for Uniform Resource Locator. A URL is nothing more than the address of a given unique resource on the Web.
+anatomy of a URL
+A URL is composed of different parts, some mandatory and others optional. The most important parts are highlighted on the URL below :
+
+scheme:  indicates the protocol that the browser must use to request the resource. (a protocol is a set method for exchanging or transferring data around a computer network). Usually for websites the protocol is HTTPS or HTTP (its unsecured version).
+Domain Name: Identifies the specific website or resource, like 'example.com' or 'google.com'.
+Port: indicates the technical "gate" used to access the resources on the web server. It is usually omitted if the web server uses the standard ports of the HTTP protocol
+Path to resource: /path/to/myfile.html is the path to the resource on the Web server.
+Parameters: ?key1=value1&key2=value2 are extra parameters provided to the Web server. Those parameters are a list of key/value pairs separated by the & symbol. The Web server can use those parameters to do extra stuff before returning the resource.
+
+Domain Name consists of:
+
+Subdomain (optional): Subdomains are optional parts of a domain name that precede the primary domain name. They are used to organize and structure websites further. For example, in the domain name "www.example.com," "www" is the subdomain.
+2nd level domain: The second level domain is the main part of a domain name, representing the primary identity of a website or service. It is located to the left of the top-level domain. In "example.com," "example" is the second-level domain.
+Top-level domain: The top-level domain (TLD) is the highest level in the domain name hierarchy. It signifies the type or purpose of the website and often relates to the organization, geographic location, or industry. Common examples include ".com" ".org" and ".net"
+Root domain: Consists of a second-level domain and a top-level domain.
+Hidden dot at the end: While not explicitly visible in domain names, there is a hidden dot at the end of every fully qualified domain name (FQDN). This dot indicates the root of the domain hierarchy and is essential for resolving domain names in the DNS system.
+DNS Request
+What is DNS?
+The Domain Name System (DNS) is the phonebook of the Internet. Humans access information online through domain names, such as nytimes.com or espn.com. Web browsers interact through Internet Protocol (IP) addresses. DNS translates domain names to IP addresses so browsers can load Internet resources.
+How does DNS work?
+The process of DNS resolution involves converting a hostname (such as www.example.com) into a computer-friendly IP address (such as 192.168.1.1). An IP address is given to each device on the Internet, and that address is necessary to find the appropriate Internet device - like a street address is used to find a particular home. When a user wants to load a webpage, a translation must occur between what a user types into their web browser (example.com) and the machine-friendly address necessary to locate the example.com webpage.
+There are 4 DNS servers involved in loading a webpage:
+DNS recursor (DNS recursive resolver) :The recursor can be thought of as a librarian who is asked to go find a particular book somewhere in a library. The DNS recursor is a server designed to receive queries from client machines through applications such as web browsers. Typically the recursor is then responsible for making additional requests in order to satisfy the client’s DNS query.
+Root nameserver - The root server is the first step in translating (resolving) human readable host names into IP addresses. It can be thought of like an index in a library that points to different racks of books - typically it serves as a reference to other more specific locations.
+TLD nameserver - The top level domain server (TLD) can be thought of as a specific rack of books in a library. This nameserver is the next step in the search for a specific IP address, and it hosts the last portion of a hostname (In example.com, the TLD server is “com”).
+Authoritative nameserver - This final nameserver can be thought of as a dictionary on a rack of books, in which a specific name can be translated into its definition. The authoritative nameserver is the last stop in the nameserver query. If the authoritative name server has access to the requested record, it will return the IP address for the requested hostname back to the DNS Recursor (the librarian) that made the initial request.
+DNS Lookup
+Browser DNS Cache Check:Before initiating a DNS lookup, the browser first checks its own DNS cache to see if it has a stored IP address for "google.com" from a previous visit. If the IP address is found and is still valid, the browser uses it to establish a connection, bypassing the need for a full DNS lookup.
+Local DNS Cache Check (Operating System):If the IP address is not found in the browser's cache, the operating system's DNS resolver checks its local DNS cache. Similar to the browser cache, this cache stores previously resolved domain names and their corresponding IP addresses. If a valid entry for "google.com" is found, the OS retrieves the IP address from the cache and forwards it to the browser.
+Root DNS Server Query:If the IP address is not found in either the browser or OS cache, the DNS resolution process begins. Your device sends a DNS query to a root DNS server, requesting the IP address for "google.com".
+TLD DNS Server Query:The root DNS server responds with the IP address of the TLD DNS server responsible for the ".com" domain. Your device then sends another DNS query to this TLD DNS server.
+Authoritative DNS Server Query:The TLD DNS server responds with the IP address of the authoritative DNS server for "google.com". This authoritative DNS server holds the specific IP address associated with "google.com".
+IP Address Response:Your device sends a final DNS query to the authoritative DNS server for "google.com", requesting the IP address associated with the domain name.The authoritative DNS server responds with the IP address of the server hosting "google.com".
+Caching of IP Address:Once your device receives the IP address from the authoritative DNS server, it caches this information locally in both the browser and the operating system's DNS cache. This helps speed up subsequent DNS lookups for the same domain name, reducing the need for repeated queries to the DNS hierarchy.
+Establishment of Connection:With the IP address obtained through DNS resolution, your device can now establish a connection to the web server hosting "google.com" using protocols such as TCP/IP.
+TCP/IP Connection
+TCP/IP stands for Transmission Control Protocol/Internet Protocol and is a suite of communication protocols used to interconnect network devices on the Internet.
+What is TCP?
+Transmission Control Protocol (TCP) is a communications standard that enables application programs and computing devices to exchange messages over a network. It is designed to send packets across the internet and ensure the successful delivery of data and messages over networks.
+What is IP?
+The Internet Protocol (IP) is the method for sending data from one device to another across the internet. Every device has an IP address that uniquely identifies it and enables it to communicate with and exchange data with other devices connected to the internet.  Today, it’s considered the standard for fast and secure communication directly between mobile devices.
+
+First, the source sends an SYN “initial request” packet to the server to start the dialogue. Then the server sends a SYN-ACK packet to agree to the process. Lastly, the source sends an ACK packet to the server to confirm the process, after which the request can be sent.
+a connection is established and a 3-way handshake is made.
+
+HTTPS/SSL
+What is HTTPS?
+Hypertext transfer protocol secure (HTTPS) is the secure version of HTTP, which is the primary protocol used to send data between a web browser and a website. HTTPS is encrypted in order to increase security of data transfer. This is particularly important when users transmit sensitive data, such as by logging into a bank account, email service, or health insurance provider.
+Any website, especially those that require login credentials, should use HTTPS. In modern web browsers such as Chrome, websites that do not use HTTPS are marked differently than those that are. Look for a padlock in the URL bar to signify the webpage is secure. Web browsers take HTTPS seriously; Google Chrome and other browsers flag all non-HTTPS websites as not secure.
+
+How does HTTPS work?
+HTTPS uses an encryption protocol to encrypt communications. The protocol is called Transport Layer Security (TLS), although formerly it was known as Secure Sockets Layer (SSL). This protocol secures communications by using what’s known as an asymmetric public key infrastructure. This type of security system uses two different keys to encrypt communications between two parties:
+The private key - this key is controlled by the owner of a website and it’s kept, as the reader may have speculated, private. This key lives on a web server and is used to decrypt information encrypted by the public key.
+The public key - this key is available to everyone who wants to interact with the server in a way that’s secure. Information that’s encrypted by the public key can only be decrypted by the private key.
+Why is HTTPS important? What happens if a website doesn’t have HTTPS?
+HTTPS prevents websites from having their information broadcast in a way that’s easily viewed by anyone snooping on the network. When information is sent over regular HTTP, the information is broken into packets of data that can be easily “sniffed” using free software. This makes communication over the an unsecure medium, such as public Wi-Fi, highly vulnerable to interception. In fact, all communications that occur over HTTP occur in plain text, making them highly accessible to anyone with the correct tools, and vulnerable to on-path attacks.
+Load-balancer
+Load balancing refers to efficiently distributing incoming network traffic across a group of backend servers, also known as a server farm or server pool.
+Modern high‑traffic websites must serve hundreds of thousands, if not millions, of concurrent requests from users or clients and return the correct text, images, video, or application data, all in a fast and reliable manner. To cost‑effectively scale to meet these high volumes, modern computing best practice generally requires adding more servers.
+A load balancer acts as the “traffic cop” sitting in front of your servers and routing client requests across all servers capable of fulfilling those requests in a manner that maximizes speed and capacity utilization and ensures that no one server is overworked, which could degrade performance. If a single server goes down, the load balancer redirects traffic to the remaining online servers. When a new server is added to the server group, the load balancer automatically starts to send requests to it.
+In this manner, a load balancer performs the following functions:
+Distributes client requests or network load efficiently across multiple servers
+Ensures high availability and reliability by sending requests only to servers that are online
+Provides the flexibility to add or subtract servers as demand dictates
+
+Firewall
+A firewall is a network security device or software application that acts as a barrier between a trusted internal network and untrusted external networks, such as the Internet. Its primary purpose is to monitor and control incoming and outgoing network traffic based on predetermined security rules. Firewalls serve as the first line of defense in protecting an organization's network infrastructure from unauthorized access, malicious attacks, and other security threats.
+Key aspects and functionalities of firewalls include:
+Traffic Filtering: Firewalls inspect incoming and outgoing network traffic and apply filtering rules to determine whether to allow or block specific types of traffic based on predefined criteria. This can include filtering based on IP addresses, port numbers, protocols, and packet contents.
+Access Control: Firewalls enforce access control policies to regulate access to network resources and services. They can restrict access to certain applications, services, or ports based on user roles, authentication credentials, or other factors.
+Stateful Inspection: Many modern firewalls employ stateful inspection techniques to monitor the state of active connections and make dynamic decisions about allowing or blocking traffic based on the context of the connection. This helps prevent unauthorized access and ensures that only legitimate traffic is allowed through.
+Intrusion Prevention: Some advanced firewalls include intrusion prevention system (IPS) capabilities, which actively monitor network traffic for signs of suspicious or malicious activity and take proactive measures to block or mitigate potential threats in real-time.
+Virtual Private Network (VPN) Support: Firewalls often include VPN functionality to facilitate secure remote access to internal network resources for remote users or branch offices. VPNs use encryption and tunneling protocols to create secure connections over public networks, ensuring data confidentiality and integrity.
+Logging and Reporting: Firewalls generate logs and reports to provide visibility into network traffic patterns, security events, and policy violations. This information is valuable for network administrators to analyze and troubleshoot security incidents, audit compliance with security policies, and identify areas for improvement.
+High Availability and Redundancy: Enterprise-grade firewalls are designed for high availability and redundancy to ensure continuous protection and minimize downtime. They may support features such as failover clustering, active-passive or active-active configurations, and automatic failover in case of hardware or software failures.
+Overall, firewalls play a critical role in safeguarding network infrastructure, data assets, and sensitive information from unauthorized access, cyber threats, and other security risks. They are essential components of a comprehensive cybersecurity strategy and are deployed in various network environments, including corporate networks, data centers, cloud environments, and home networks, to mitigate security threats and maintain network integrity and confidentiality.
+Web Server
+A web server is a software application or hardware device that serves content to clients over the World Wide Web. It handles incoming Hypertext Transfer Protocol (HTTP) requests from clients, such as web browsers, and delivers web pages, files, or other resources in response.
+Web servers are responsible for:
+Receiving and processing HTTP requests: When a client (such as a web browser) requests a web page or resource by entering a URL into the address bar or clicking on a link, the web server receives the HTTP request.
+Serving static and dynamic content: Web servers can serve static content (predefined files like HTML, CSS, images, and JavaScript) directly to clients. Additionally, they can also interact with application servers or databases to generate dynamic content (content that is generated on the fly based on user input or other parameters).
+Handling security: Web servers often include features for enforcing security measures such as HTTPS support (encrypting data transmission using SSL/TLS protocols), access control (authentication and authorization mechanisms), and protection against common web attacks (e.g., cross-site scripting, SQL injection).
+Managing connections: Web servers manage multiple concurrent connections from clients efficiently, using mechanisms like connection pooling, thread or process management, and keep-alive connections to improve performance and scalability.
+How does a web server work ?
+The operation of a web server involves several steps, from receiving and processing client requests to delivering the requested content. Here's an overview of how a web server works:
+Listening: The web server listens for incoming requests on designated ports.
+Processing: Upon receiving a request, it parses the request to determine the requested resource and required actions.
+Handling: It handles the request by locating and serving static content directly or passing dynamic requests to application servers.
+Response Generation: It generates an HTTP response containing the requested content or dynamically generated data.
+Sending: The response is sent back to the client over the established TCP connection.
+Closing: Optionally, the connection may be kept open for future requests or closed immediately after sending the response.
+Throughout this process, the web server may perform additional tasks such as logging, security enforcement, and resource management to ensure efficient and reliable operation.
+Application Server
+An application server is software that provides an environment for running web applications. It executes the business logic, integrates with databases, offers middleware services, supports web services, facilitates scalability and load balancing, and assists in deployment and management of web applications.
+How Does Application Server work? 
+An application server works by providing an execution environment for web applications. Here's how it typically operates:
+Receiving Requests: The application server receives requests from clients, usually via a web server acting as a reverse proxy.
+Routing and Processing: It routes the requests to the appropriate component or application within its environment based on predefined rules or configurations.
+Business Logic Execution: The application server executes the business logic of the web application, processing data, performing calculations, and generating dynamic content.
+Database Interaction: If necessary, the application server interacts with a database server to retrieve or store data required by the application.
+Middleware Services: It provides middleware services such as transaction management, security enforcement, caching, and messaging to enhance the functionality and performance of the applications.
+Web Service Support: Application servers can also support the deployment and execution of web services, allowing applications to communicate and exchange data with each other over the internet.
+Scalability and Load Balancing: Many application servers offer features for scaling applications horizontally by distributing incoming requests across multiple instances or servers. Load balancing ensures efficient handling of high-traffic loads.
+Response Generation: After processing the request and executing the necessary actions, the application server generates an appropriate response, which is then sent back to the client.
+Deployment and Management: Application servers provide tools and utilities for deploying, managing, and monitoring web applications, including features like application deployment, version control, logging, and performance monitoring.
+Throughout this process, the application server manages the execution of web applications, ensures their proper functioning, and provides necessary services to support their operation in a production environment.
+Database
+A database is a structured collection of data organized in a way that facilitates efficient retrieval, storage, and manipulation. It serves as a centralized repository for storing and managing data, enabling users or applications to store, retrieve, update, and delete information as needed. Databases are widely used in various applications, ranging from simple data storage systems to complex enterprise-level systems.
+how does a database work?
+Data Modeling: Before creating a database, developers define its structure and relationships using a data model. This includes specifying tables, columns, data types, and relationships between different entities.
+Creating the Database: Once the data model is defined, the database management system (DBMS) is used to create the database based on the model. The DBMS handles the creation of physical storage structures, such as files or disk partitions, to store the data.
+Data Insertion: Users or applications can insert data into the database using SQL (Structured Query Language) statements or through programmatic interfaces provided by the DBMS. Data is inserted into specific tables according to the defined structure.
+Data Retrieval: To retrieve data from the database, users or applications submit SQL queries to the DBMS. These queries specify the data to retrieve, as well as any conditions or criteria for filtering the results. The DBMS processes the queries and retrieves the requested data from the database.
+Data Manipulation: Users or applications can modify existing data in the database using SQL statements such as UPDATE, DELETE, or INSERT. These statements allow for adding new records, updating existing records, or deleting unwanted records from the database.
+Data Integrity and Security: Databases enforce data integrity constraints to maintain the accuracy and consistency of data. This includes rules such as primary key constraints, foreign key constraints, unique constraints, and check constraints. Additionally, databases provide security features such as user authentication, authorization, and encryption to protect data from unauthorized access.
+Indexing and Optimization: To improve performance, databases use indexing techniques to quickly locate data based on specific criteria. Indexes are created on columns frequently used in queries, allowing for faster data retrieval. Database administrators also perform optimization tasks such as query tuning and database tuning to improve overall performance and efficiency.
+Backup and Recovery: Databases regularly perform backups to ensure data durability and resilience against failures. Backup strategies include full backups, incremental backups, and transaction log backups. In case of data loss or corruption, databases provide mechanisms for recovering data from backups and restoring the database to a consistent state.
+Overall, databases play a crucial role in storing and managing data for various applications, providing a reliable and efficient way to organize, access, and manipulate information. 
+After understanding the inner workings of 
+DNS request
+TCP/IP
+Firewall
+HTTPS/SSL
+Load-balancer
+Web server
+Application server
+Database
+let me answer your question " What happens when you type google.com in your browser and press Enter ":
+DNS Request:Your browser initiates a DNS request if there's no record of google.com ip in the cache of the browser and os to resolve the domain name "google.com" into an IP address.The DNS resolver processes the request and returns the IP address associated with "google.com".
+TCP/IP Connection:Armed with the IP address obtained from DNS resolution, your browser establishes a TCP connection to the server hosting "google.com".TCP ensures reliable communication by breaking data into packets, sending them, and reassembling them at the destination.
+Firewall:The TCP connection passes through firewalls, which monitor and filter incoming and outgoing traffic. The firewall checks for security threats or policy violations, ensuring only legitimate traffic passes through.
+HTTPS/SSL:Once the connection is established, your browser initiates an HTTPS connection by sending an HTTPS request to the server.HTTPS encrypts the data exchanged between your browser and the server using SSL/TLS protocols, ensuring confidentiality and integrity.
+Load-Balancer:If Google employs load-balancing technology, your request may be directed to one of several backend servers.The load balancer distributes incoming requests across these servers to optimize performance and ensure high availability.
+Web Server:Upon receiving your HTTPS request, the web server hosting "google.com" processes it.The web server fetches the requested resources such as HTML, CSS, JavaScript, and images.
+Application Server:In some cases, the web server communicates with an application server to fulfill your request.The application server executes complex business logic, interacts with databases, and generates dynamic content.
+Database:If your request involves fetching or manipulating data stored in a database, the application server interacts with the appropriate database server.The database server retrieves or updates the requested data and returns it to the application server for further processing.
+
+
+https://www.linkedin.com/posts/medhat-deif-lab-manager_httpslnkdindjhhc3r2-activity-7183544184522371074-jBzh?utm_source=share&utm_medium=member_desktop

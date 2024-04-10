@@ -1,0 +1,15 @@
+Everything’s better with a pretty diagram
+Pretty diagrams are as important in the computer world as in other fields, they aid our understanding of how technical things work.
+The last post I shared explained what happens when you type https://www.google.com in your browser and press Enter. This blog is about how the internet works presented in a diagram. Once again, this design may not answer all questions but it does for most of them.
+DNS Resolution Process
+When you type www.google.com in your browser and hit enter, your device (computer or router) in its setting, manages to intelligently ask your ISP’s NDS resolver “what is the IP address for www.google.com?" However, remember these processes run in the background/abstracted from users of the systems.
+The DNS resolver will have to figure out where to find the server hosting that website. So, it will ask the root DNS server about the IP address associated with the domain name supplied by the user through a web browser query.
+The root DNS server will respond to the resolver that it does not know who www.google.com (its IP address) is, but it does know the .com Authoritative name server who can have a knowledge of that.
+Now we are getting closer, the resolver directly asks the .com Authoritative Name Server “what is the IP address for www.google.com?" However, the .com Authoritative Name Server doesn't know as well what the IP address of that domain name is but it knows Google.com Authoritative Name Server who can answer that question well.
+Now the resolver has a clue, it will ask Google.com Authoritative Name server “what is the IP address for www.google.com?" Awesome, I got what you need! says Google.com Authoritative Name server and then send the “74.125.224.72” IP address which translates to www.google.com to the resolver.
+Finally, the resolver will tell the user’s browser, “the IP address for www.google.com is 74.125.224.72”. The browser, without user’s knowledge will then send an HTTP/HTTPS request to the identified server which in turn responds with the requested page (s).
+As seen in the diagram above, all communications must be sent via an encrypted (HTTPS/TLS) connection to the server to ensure data security. It is a much quicker process due to caching (storing the mapping of domain name to IP address to eliminate repeating all the steps every time). You probably won't notice all that and before you know it, you have your page.
+Well, it was quite a journey and we need a break or perhaps a cup of water.
+Thanks a lot for your time :)
+
+![3](https://github.com/Medo20300/alx-system_engineering-devops/assets/135258669/17c0c06b-e518-4278-8450-2628356fda69)
