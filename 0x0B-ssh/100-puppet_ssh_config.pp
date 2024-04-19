@@ -1,4 +1,4 @@
-# Puppet manifest to manage SSH configuration
+#!/usr/bin/env bash
 
 file_line { 'Turn off passwd auth':
   ensure => present,
