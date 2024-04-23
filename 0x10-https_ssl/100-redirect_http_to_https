@@ -1,3 +1,9 @@
+sudo apt-get update
+sudo apt-get install certbot
+sudo certbot certonly --standalone -d medhatprogramming.tech
+
+# /etc/haproxy/haproxy.cfg 
+
 global
         log /dev/log    local0
         log /dev/log    local1 notice
@@ -32,3 +38,23 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
+
+frontend  medhatprogramming_frontend
+        bind *:80
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X-Forwarded-Proto https
+        default_backend medhatprogramming_backend
+
+frontend medhatprogramming_frontend-https
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/www.medhatprogramming.tech.pem
+    mode http
+    http-request set-header X-Forwarded-Proto https
+    default_backend medhatprogramming_backend
+
+backend medhatprogramming_backend
+	balance roundrobin
+        server 527825-web-01 54.237.41.27:80 check
+        server 527825-web-02 18.210.18.239:80 check
+sudo service haproxy restart
