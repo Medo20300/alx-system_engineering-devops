@@ -1,5 +1,37 @@
-#!/usr/bin/env bash
-# same as task 0 but -f added to ln to forcefully remove the file if it exists
-ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-sudo service nginx restart
-rm /run/nginx.pid
+#!/bin/bash
+
+# Check if the script is run as root
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 
+    exit 1
+fi
+
+# Step 1: Ensure Nginx is installed
+if ! command -v nginx &> /dev/null; then
+    echo "Nginx is not installed. Installing..."
+    apt update
+    apt install nginx -y
+fi
+
+# Step 2: Check Nginx configuration files for errors
+if ! nginx -t; then
+    echo "Nginx configuration test failed. Please fix the errors before proceeding."
+    exit 1
+fi
+
+# Step 3: Restart Nginx service
+echo "Restarting Nginx service..."
+systemctl restart nginx
+
+# Step 4: Verify Nginx is listening on port 80
+echo "Verifying Nginx is listening on port 80..."
+if netstat -tuln | grep ':80'; then
+    echo "Nginx is listening on port 80."
+else
+    echo "Nginx is not listening on port 80. Please check the configuration."
+    exit 1
+fi
+
+# Step 5: Perform curl request
+echo "Performing curl request..."
+curl 0:80
