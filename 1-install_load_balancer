@@ -18,8 +18,8 @@ frontend medhatprogramming_frontend
 
 backend medhatprogramming_backend
 	       balance roundrobin
-	server 527825-web-01 54.237.41.27:80 check
-	server 527825-web-02 18.210.18.239:80 check
+	server 527825-web-01 18.206.232.73:80 check
+	server 527825-web-02 54.172.247.161:80 check
 
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
