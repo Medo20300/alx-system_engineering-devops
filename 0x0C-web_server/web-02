@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash 
 # server-01 login
 
 
 eval $("ssh-agent")
 
-ssh-add /home/medhat/.ssh/school
+ssh-add ~/.ssh/school
 
 
 ssh ubuntu@174.129.39.116
