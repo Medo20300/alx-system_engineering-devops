@@ -7,24 +7,21 @@ from requests import get
 
 
 def number_of_subscribers(subreddit):
-    # Define the URL for the subreddit information
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    
-    # Set a custom User-Agent
-    headers = {'User-Agent': 'Python:subreddit.subscriber.count:v1.0 (by /u/yourusername)'}
-    
+    """
+    function that queries the Reddit API and returns the number of subscribers
+    (not active users, total subscribers) for a given subreddit.
+    """
+
+    if subreddit is None or not isinstance(subreddit, str):
+        return 0
+
+    user_agent = {'User-agent': 'Google Chrome Version 81.0.4044.129'}
+    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+    response = get(url, headers=user_agent)
+    results = response.json()
+
     try:
-        # Make the request to the Reddit API
-        response = requests.get(url, headers=headers, allow_redirects=False)
-        
-        # Check if the response status code is 200 (OK)
-        if response.status_code == 200:
-            data = response.json()
-            # Return the number of subscribers
-            return data['data']['subscribers']
-        else:
-            # If the subreddit is not found or another error occurs, return 0
-            return 0
-    except Exception as e:
-        # Handle any exceptions that occur and return 0
+        return results.get('data').get('subscribers')
+
+    except Exception:
         return 0
