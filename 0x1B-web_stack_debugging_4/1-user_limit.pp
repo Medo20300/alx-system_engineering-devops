@@ -1,7 +1,11 @@
-# Change the OS configuration so that it is possible to login with the
-# holberton user and open a file without any error message.
+# Reconfigure the OS for 'holberton' to login and open a file without any error message
 
-exec {'OS security config':
-  command => 'sed -i "s/holberton/foo/" /etc/security/limits.conf',
-  path    => '/usr/bin/env/:/bin/:/usr/bin/:/usr/sbin/'
+exec { 'increase-hard-file-limit-holberton-user':
+  command => 'sed -i "/holberton hard/s/4/50000/" /etc/security/limits.conf',
+  path    => '/usr/local/bin/:/bin/'
+}
+
+exec { 'increase-soft-file-limit-for-holberton-user':
+  command => 'sed -i "/holberton soft/s/5/50000/" /etc/security/limits.conf',
+  path    => '/usr/local/bin/:/bin/'
 }
