@@ -42,3 +42,9 @@ exec { 'reload-systemd-limits':
   path    => '/usr/local/bin:/bin:/usr/bin:/usr/sbin',
   subscribe => Exec['increase-system-wide-file-limit', 'increase-hard-file-limit-holberton-user', 'increase-soft-file-limit-for-holberton-user'],
 }
+
+# Remove password for the holberton user
+exec { 'remove-holberton-password':
+  command => 'passwd -d holberton',
+  path    => '/usr/local/bin:/bin:/usr/bin:/usr/sbin',
+}
